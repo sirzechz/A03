@@ -26,6 +26,24 @@ public class Bandido {
         }
     }
 
+    public void disparar(Bandido b){
+        if (b.salud > 0) {
+            if(pistola.marca.equals("Escopeta")){
+                b.salud = b.salud - 4;
+            } else {
+                b.salud = b.salud - 2;
+            }
+
+            if (b.salud <= 0) {
+                b.rendirse();
+            }
+        }
+    }
+
+    public int getSalud(){
+        return salud;
+    }
+
     public void rendirse() {
         System.out.println("*C va*");
     }
