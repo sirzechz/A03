@@ -1,9 +1,14 @@
+import java.util.Random; 
+
+
 public class Bandido {
     private String apodo;
     private int peso;
     private boolean tieneTatuaje;
     private int salud = 5;
     private Pistola pistola;
+    private Random random = new Random();
+
 
     public Bandido(String apodo, int peso, boolean tatuaje) {
         this.apodo = apodo;
@@ -18,25 +23,28 @@ public class Bandido {
     }
 
     public void golpear(Bandido b) {
-        if (b.salud > 0) {
-            b.salud--;
-            if (b.salud <= 0) {
-                b.rendirse();
-            }
-        }
+        b.recibirDanio(1);
     }
 
     public void disparar(Bandido b){
-        if (b.salud > 0) {
-            if(pistola.marca.equals("Escopeta")){
-                b.salud = b.salud - 4;
+        if(pistola.marca.equals("Escopeta")){
+                b.recibirDanio(4);
             } else {
-                b.salud = b.salud - 2;
+                b.recibirDanio(2);
             }
+    }
 
-            if (b.salud <= 0) {
-                b.rendirse();
+    private void recibirDanio(int danio){
+        // Devuelve un numeor en el rango 0..1 Sí es 1 recibe daño 
+        if (random.nextInt(2) == 1){
+            salud -= danio;
+
+            System.out.println("Ay!");
+            if (salud <= 0){ // SI la vida es 0 o menor
+                rendirse();
             }
+        } else {
+            System.out.println("Apunta mejor, tonto ql");
         }
     }
 
