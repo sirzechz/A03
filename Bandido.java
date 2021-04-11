@@ -21,7 +21,7 @@ public class Bandido {
             pistola = new Pistola("Magnum", 6);
         }
     }
-
+//Agregar metodo atacar que llame a metodo Dispara, y al quedar sin balas, al metodo golpear;
     public void golpear(Bandido b) {
         b.recibirDanio(1);
     }
@@ -41,7 +41,7 @@ public class Bandido {
 
             System.out.println("Ay!");
             if (salud <= 0){ // SI la vida es 0 o menor
-                rendirse();
+                System.out.println("Me rindo!");
             }
         } else {
             System.out.println("Apunta mejor, tonto ql");
@@ -50,10 +50,6 @@ public class Bandido {
 
     public int getSalud(){
         return salud;
-    }
-
-    public void rendirse() {
-        System.out.println("*C va*");
     }
 
     public void datos() {
