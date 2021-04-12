@@ -1,34 +1,52 @@
-import java.util.Random; 
-public class main {
-  public static void main(String[] args) {
-    
-    Random random = new Random();
-    Banda banda1 = new Banda("banda1", 2);
-    Banda banda2 = new Banda("banda2", 1);
+package A03;
 
+import java.util.Random;
 
-    Bandido juan = new Bandido("Juancho", 85, true);
-    Bandido miguel = new Bandido("asTa", 543, false);
-    Bandido julio = new Bandido("Julio", 23, false);
+public class Principal {
 
-    banda1.agregarMiembro(juan);
-    banda1.agregarMiembro(miguel);
-    banda2.agregarMiembro(julio);
+    public static void main(String[] args) {
 
-    int index1,index2;
-    index1 = random.nextInt(banda1.cantidadMiembros());
-    index2 = random.nextInt(banda2.cantidadMiembros());
+        Random random = new Random();
+        Banda banda1 = new Banda("Los motoqueros", 2);
+        Banda banda2 = new Banda("Los malulos", 3);
 
+        String[] apodos = {"El barrilito", "Lucho", "El orejón", "Tu vieja"};
+        boolean[] valores = {true, false};
 
-    Bandido b = banda1.getBandido(index1);
-    Bandido b2 = banda2.getBandido(index2);
+        // Valores aleatorios, pueden repetirse los nombres.
+        banda1.agregarMiembro(new Bandido(apodos[random.nextInt(4)], random.nextInt(100), valores[random.nextInt(2)]));
+        banda1.agregarMiembro(new Bandido(apodos[random.nextInt(4)], random.nextInt(100), valores[random.nextInt(2)]));
+        banda2.agregarMiembro(new Bandido(apodos[random.nextInt(4)], random.nextInt(100), valores[random.nextInt(2)]));
+        banda2.agregarMiembro(new Bandido(apodos[random.nextInt(4)], random.nextInt(100), valores[random.nextInt(2)]));
+        banda2.agregarMiembro(new Bandido(apodos[random.nextInt(4)], random.nextInt(100), valores[random.nextInt(2)]));
 
+        int index1 = banda1.getBandidoValido();
+        int index2 = banda2.getBandidoValido();
 
-    b.golpear(b2);
-    b2.disparar(b);
-    b.golpear(b2);
-    b.golpear(b2);
-    b.golpear(b2);
+        Bandido b;
+        Bandido b2;
 
-  }
+        while (index1 != -1 && index2 != -1) {
+            b = banda1.getBandido(index1);
+            b2 = banda2.getBandido(index2);
+
+            if (b.getSalud() > 0) {
+                b.atacar(b2);
+            }
+            if (b2.getSalud() > 0) {
+                b2.atacar(b);
+            }
+
+            index1 = banda1.getBandidoValido();
+            index2 = banda2.getBandidoValido();
+        }
+
+        if (index1 == -1) {
+            System.out.println("La banda " + banda1.nombre + " ha perdido");
+        } else {
+            System.out.println("La banda " + banda2.nombre + " ha perdido");
+        }
+
+    }
+
 }
